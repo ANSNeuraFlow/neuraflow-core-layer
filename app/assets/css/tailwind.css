@@ -1,0 +1,22 @@
+/* stylelint-disable at-rule-no-unknown */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply transition-colors duration-short scrollbar scrollbar-thin;
+  }
+
+  :root * {
+    @apply scrollbar-track-surface-inverted/10 scrollbar-thumb-surface-inverted/10;
+  }
+
+  :root *:hover {
+    @apply scrollbar-thumb-surface-inverted/20;
+  }
+
+  body {
+    @apply bg-surface;
+  }
+}
