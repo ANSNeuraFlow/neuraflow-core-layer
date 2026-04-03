@@ -15,8 +15,8 @@ export const appCardVariants = cva('bg-surface-container rounded-md', {
     },
     shadow: {
       none: '',
-      sm: 'shadow-sm shadow-black/20',
-      md: 'shadow-md shadow-black/20',
+      sm: 'shadow-sm shadow-surface-inverted/20',
+      md: 'shadow-md shadow-surface-inverted/20',
     },
   },
   defaultVariants: {
