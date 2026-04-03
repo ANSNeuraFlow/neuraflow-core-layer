@@ -18,6 +18,7 @@ export const appButtonVariants = cva(
         ].join(' '),
         ghost: 'bg-transparent text-on-surface hover:bg-on-surface/5 active:bg-on-surface/10',
         danger: 'bg-error text-on-surface-inverted hover:bg-error/80 active:bg-error/70',
+        destructive: 'bg-error text-on-surface-inverted hover:bg-error/80 active:bg-error/70',
         link: 'bg-transparent text-accent hover:text-accent/80 underline-offset-4 hover:underline p-0 h-auto',
       },
       size: {
@@ -35,7 +36,7 @@ export const appButtonVariants = cva(
 );
 
 export interface AppButtonProps {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'link';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'link' | 'destructive';
   size?: 'sm' | 'md' | 'lg' | 'full';
   loading?: boolean;
   disabled?: boolean;
