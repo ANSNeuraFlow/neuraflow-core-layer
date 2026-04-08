@@ -77,11 +77,6 @@
   --color-success-container: 132 204 22;
 }
 
-/*
- * data-theme on <html> — alternatywa dla klas theme-*.
- * Specyficzność html[data-theme] > .theme-dark, więc np. data-theme="light"
- * przebija domyślne class="theme-dark" z core nuxt.config.
- */
 html[data-theme='light'] {
   /* Surfaces */
   --color-surface: 242 242 242;
