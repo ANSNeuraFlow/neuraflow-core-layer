@@ -2,7 +2,9 @@
 import { cn } from '../../utils/tailwind.utils';
 import { type AppButtonProps, appButtonVariants } from '.';
 
-withDefaults(defineProps<AppButtonProps>(), {
+defineOptions({ inheritAttrs: false });
+
+const props = withDefaults(defineProps<AppButtonProps>(), {
   variant: 'primary',
   size: 'md',
   loading: false,
@@ -13,11 +15,12 @@ withDefaults(defineProps<AppButtonProps>(), {
 
 <template>
   <button
+    v-bind="$attrs"
     :type="type"
     :disabled="disabled || loading"
     :aria-disabled="disabled || loading"
     :aria-busy="loading"
-    :class="cn(appButtonVariants({ variant, size }))"
+    :class="cn(appButtonVariants({ variant, size }), props.class)"
   >
     <Icon
       v-if="loading"

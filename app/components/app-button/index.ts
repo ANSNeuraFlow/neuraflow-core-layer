@@ -1,4 +1,5 @@
 import { cva, type VariantProps } from 'class-variance-authority';
+import type { ClassValue } from 'clsx';
 
 export const appButtonVariants = cva(
   [
@@ -41,6 +42,7 @@ export interface AppButtonProps {
   loading?: boolean;
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
+  class?: ClassValue;
 }
 
 export type AppButtonVariants = VariantProps<typeof appButtonVariants>;
