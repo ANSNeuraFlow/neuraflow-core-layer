@@ -23,7 +23,6 @@ const localValue = computed({
   set: (val: string | undefined) => {
     const newVal = val === '' || val === undefined ? null : val;
     emit('update:modelValue', newVal);
-    // Emit 'change' for vee-validate reactivity
     const evt = new Event('change', { bubbles: true });
     Object.defineProperty(evt, 'target', { writable: false, value: { value: newVal } });
     emit('change', evt);
@@ -41,9 +40,11 @@ const localValue = computed({
       :id="id"
       :class="
         cn(
-          'flex h-[3.6rem] w-full cursor-pointer items-center justify-between rounded-lg border bg-surface-container px-md text-body-md shadow-sm',
-          'outline-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/50',
-          error ? 'border-error text-error' : 'border-outline text-on-surface hover:border-on-surface/30',
+          'flex h-[3.6rem] w-full cursor-pointer items-center justify-between rounded-sm border bg-surface-container px-md text-body-md shadow-sm',
+          'outline-none transition-colors duration-short focus:outline-none',
+          error
+            ? 'border-error/60 text-error hover:border-error/80 focus:border-error focus:ring-2 focus:ring-error/15'
+            : 'border-on-surface/10 text-on-surface hover:border-on-surface/20 focus:border-accent focus:ring-2 focus:ring-accent/15',
           disabled && 'cursor-not-allowed opacity-50',
           !localValue && 'text-on-surface-dim',
         )
@@ -61,12 +62,11 @@ const localValue = computed({
 
     <SelectPortal>
       <SelectContent
-        class="SelectContent relative z-[100] max-h-[30rem] overflow-hidden rounded-xl border border-on-surface/10 bg-surface/90 shadow-[0_0_60px_rgba(0,0,0,0.5)] backdrop-blur-3xl"
+        class="select-content relative z-[100] max-h-[30rem] overflow-hidden rounded-sm border border-on-surface/10 bg-surface/90 shadow-[0_0_60px_rgba(0,0,0,0.5)] backdrop-blur-3xl"
         position="popper"
         :side-offset="8"
         :style="{ width: 'var(--reka-select-trigger-width, var(--radix-select-trigger-width))' }"
       >
-        <!-- Glassmorphism Ambient Orbs -->
         <div
           class="pointer-events-none absolute -left-10 -top-10 h-[100px] w-[100px] rounded-full bg-info/10 blur-2xl transition-colors duration-500"
           aria-hidden="true"
@@ -94,7 +94,7 @@ const localValue = computed({
             v-for="option in options"
             :key="option.value"
             :value="String(option.value)"
-            class="relative flex w-full cursor-pointer select-none items-center rounded-lg py-sm pl-[3.2rem] pr-md text-body-md text-on-surface outline-none transition-colors data-[disabled]:pointer-events-none data-[highlighted]:bg-on-surface/10 data-[state=checked]:bg-accent/10 data-[state=checked]:font-medium data-[state=checked]:text-accent data-[disabled]:opacity-50"
+            class="relative flex w-full cursor-pointer select-none items-center rounded-sm py-sm pl-[3.2rem] pr-md text-body-md text-on-surface outline-none transition-colors data-[disabled]:pointer-events-none data-[highlighted]:bg-on-surface/10 data-[state=checked]:bg-accent/10 data-[state=checked]:font-medium data-[state=checked]:text-accent data-[disabled]:opacity-50"
           >
             <span class="absolute left-sm flex h-full items-center justify-center">
               <SelectItemIndicator>
@@ -122,37 +122,39 @@ const localValue = computed({
 </template>
 
 <style scoped>
-@keyframes slideDownAndFade {
+@keyframes slide-down-and-fade {
   from {
     opacity: 0;
     transform: translateY(-8px) scale(0.96);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
 
-@keyframes slideUpAndFade {
+@keyframes slide-up-and-fade {
   from {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+
   to {
     opacity: 0;
     transform: translateY(-8px) scale(0.96);
   }
 }
 
-.SelectContent {
+.select-content {
   transform-origin: top center;
 }
 
-.SelectContent[data-state='open'] {
-  animation: slideDownAndFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.select-content[data-state='open'] {
+  animation: slide-down-and-fade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.SelectContent[data-state='closed'] {
-  animation: slideUpAndFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.select-content[data-state='closed'] {
+  animation: slide-up-and-fade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 </style>
